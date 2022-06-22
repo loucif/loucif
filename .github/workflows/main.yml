@@ -51,3 +51,13 @@ jobs:
         EXCLUDED: ${{ secrets.EXCLUDED }}
         EXCLUDED_LANGS: ${{ secrets.EXCLUDED_LANGS }}
         EXCLUDE_FORKED_REPOS: true
+
+    # Commit all changed files to the repository
+    - name: Commit to the repo
+      run: |
+        git config --global user.name "jstrieb/github-stats"
+        git config --global user.email "github-stats[bot]@jstrieb.github.io"
+        git add .
+        # Force the build to succeed, even if no files were changed
+        git commit -m 'Update generated files' || true
+        git push
